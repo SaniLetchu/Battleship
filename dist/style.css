@@ -42,9 +42,19 @@ body {
 }
 
 .enemyboard, .playerboard {
-  border: 1px solid black;
+  background: url(water.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 1px solid rgb(27, 27, 27);
   min-height: 450px;
   min-width: 450px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.enemyboard > div, .playerboard > div {
+  border: 1px solid black;
 }
 
 @media only screen and (max-width: 1200px) {
