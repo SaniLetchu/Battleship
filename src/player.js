@@ -1,4 +1,4 @@
-const player = (myBoard, enemyBoard) => {
+const Player = (myBoard, enemyBoard) => {
   const lost = () => myBoard.fleetDestroyed();
   const attack = (coordinates) => {
     if (!enemyBoard.alreadyHit(coordinates)) {
@@ -39,4 +39,4 @@ const AI = (myBoard, enemyBoard) => {
   return { lost, attack, won, AIAttack };
 };
 
-export { player, AI };
+export { Player, AI };
