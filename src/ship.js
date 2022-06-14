@@ -12,10 +12,10 @@ const ship = (length) => {
     else {
       vertical = true;
     }
-  }
+  };
   const hit = (position) => {
     container[position] = 1;
-  }
+  };
   const isSunk = () => {
     for(let i = 0; i < container.length; i+=1) {
       if(container[i] === 0) {
@@ -23,8 +23,8 @@ const ship = (length) => {
       }
     }
     return true;
-  }
-  return {container, isSunk, isVertical, hit, rotate};
+  };
+  return {container, isSunk, isVertical, hit, rotate, length};
 
 };
 
