@@ -1,14 +1,13 @@
-import gameboard from '../gameboard';
-import ship from '../ship';
+import gameboard from "../gameboard";
+import ship from "../ship";
 
 const smallShip = ship(1);
 const mediumShip = ship(3);
 const largeShip = ship(5);
 const gameboard1 = gameboard();
 
-test('Test ship placement', () => {
-
-  expect(gameboard1.map[[0,0]]).toBe(null);
+test("Test ship placement", () => {
+  expect(gameboard1.map[[0, 0]]).toBe(null);
   expect(gameboard1.legalPlaceForShip(smallShip, [0, 0])).toBeTruthy();
   gameboard1.placeShip(smallShip, [0, 0]);
   expect(gameboard1.map[[0, 0]][0]).toBe(smallShip);
@@ -26,10 +25,9 @@ test('Test ship placement', () => {
 
   expect(gameboard1.legalPlaceForShip(largeShip, [5, 0])).toBeTruthy();
   expect(gameboard1.legalPlaceForShip(largeShip, [6, 0])).toBeFalsy();
-
 });
 
-test('Test for hitting and receiving attacks and checking if fleet is destroyed', () => {
+test("Test for hitting and receiving attacks and checking if fleet is destroyed", () => {
   expect(gameboard1.fleetDestroyed()).toBeFalsy();
   expect(gameboard1.alreadyHit([0, 0])).toBeFalsy();
   gameboard1.receiveAttack([0, 0]);

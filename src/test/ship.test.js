@@ -12,11 +12,11 @@ test("Ship vertical or horizontal test", () => {
 });
 
 test("Hit function test", () => {
-  expect(mediumShip.container).toStrictEqual([0, 0, 0]); 
+  expect(mediumShip.container).toStrictEqual([0, 0, 0]);
   mediumShip.hit(0);
   expect(mediumShip.container).toStrictEqual([1, 0, 0]);
   mediumShip.hit(2);
-  expect(mediumShip.container).toStrictEqual([1, 0, 1]); 
+  expect(mediumShip.container).toStrictEqual([1, 0, 1]);
 });
 
 test("Ship sunk test", () => {
