@@ -29,8 +29,9 @@ const AI = (myBoard, enemyBoard) => {
   };
   const AIAttack = () => {
     for (;;) {
-      if (attack(randomCoordinates())) {
-        break;
+      const cord = randomCoordinates();
+      if (attack(cord)) {
+        return cord;
       }
     }
   };
