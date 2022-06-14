@@ -28,3 +28,14 @@ test('Test ship placement', () => {
   expect(gameboard1.legalPlaceForShip(largeShip, [6, 0])).toBeFalsy();
 
 });
+
+test('Test for hitting and receiving attacks and checking if fleet is destroyed', () => {
+  expect(gameboard1.fleetDestroyed()).toBeFalsy();
+  expect(gameboard1.alreadyHit([0, 0])).toBeFalsy();
+  gameboard1.receiveAttack([0, 0]);
+  expect(gameboard1.alreadyHit([0, 0])).toBeTruthy();
+  gameboard1.receiveAttack([0, 2]);
+  gameboard1.receiveAttack([0, 3]);
+  gameboard1.receiveAttack([0, 4]);
+  expect(gameboard1.fleetDestroyed()).toBeTruthy();
+});

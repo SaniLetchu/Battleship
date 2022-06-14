@@ -1,6 +1,7 @@
 const gameboard = () => {
   const map = {};
   const hits = {};
+  const ships = [];
   // Gameboard is 10 x 10
   for(let i = 0; i < 10; i+=1) {
     for(let j = 0; j < 10; j+=1) {
@@ -72,6 +73,7 @@ const gameboard = () => {
     if(legalPlaceForShip(ship, coordinates)) {
       const x = coordinates[0];
       const y = coordinates[1];
+      ships.push(ship);
       if(ship.isVertical()) {
         for(let i = 0; i < ship.length; i+=1) {
           map[[x, y + i]] = [ship, i];
@@ -84,7 +86,18 @@ const gameboard = () => {
       }
     }
   };
-  return {map, hits, placeShip, legalPlaceForShip};
+  const alreadyHit = (coordinates) => hits[coordinates];
+  const receiveAttack = (coordinates) => {
+    hits[coordinates] = true;
+    if(map[coordinates] != null) {
+      const partOfShip = map[coordinates][1];
+      const ship =  map[coordinates][0];
+      ship.hit(partOfShip);
+    }
+  };
+  const fleetDestroyed = () => ships.every((ship) => ship.isSunk());
+
+  return {map, hits, placeShip, legalPlaceForShip, alreadyHit, receiveAttack, fleetDestroyed};
 };
 
 export default gameboard;
