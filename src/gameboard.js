@@ -40,8 +40,8 @@ const gameboard = () => {
     const newCoordinates = [coordinates[0] - 1, coordinates[1] - 1];
 
     if (ship.isVertical()) {
-      for (let x = 0; x < 4; x += 1) {
-        for (let y = 0; y < ship.length + 3; y += 1) {
+      for (let x = 0; x < 3; x += 1) {
+        for (let y = 0; y < ship.length + 2; y += 1) {
           const checkX = x + newCoordinates[0];
           const checkY = y + newCoordinates[1];
           if (checkX > -1 && checkX < 10 && checkY > -1 && checkY < 10) {
@@ -52,8 +52,8 @@ const gameboard = () => {
         }
       }
     } else {
-      for (let y = 0; y < 4; y += 1) {
-        for (let x = 0; x < ship.length + 3; x += 1) {
+      for (let y = 0; y < 3; y += 1) {
+        for (let x = 0; x < ship.length + 2; x += 1) {
           const checkX = x + newCoordinates[0];
           const checkY = y + newCoordinates[1];
           if (checkX > -1 && checkX < 10 && checkY > -1 && checkY < 10) {

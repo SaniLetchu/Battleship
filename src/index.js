@@ -7,7 +7,7 @@ const playerBoardPlace = document.querySelector(".playerboardplace");
 const enemyBoard = document.querySelector(".enemyboard");
 
 const myShips = [ship(5), ship(4), ship(3), ship(3), ship(2)];
-const myShipNumber = 0;
+let myShipNumber = 0;
 const enemyShips = [ship(5), ship(4), ship(3), ship(3), ship(2)];
 const enemyShipNumber = 0;
 
@@ -39,7 +39,8 @@ for(let i = 0; i < 10; i+=1) {
   }
 }
 
-function drawPlacement(coordinates, currentShip) {
+function drawPlacement(coordinates) {
+  const currentShip = myShips[myShipNumber];
   const shipLength = currentShip.length;
   if(currentShip.isVertical()) {
     for(let i = 0; i < shipLength; i+=1) {
@@ -78,16 +79,57 @@ function removePlacement() {
   });
 }
 
+function placeShip(coordinates, board) {
+  const shipppen = myShips[myShipNumber];
+  if(board.legalPlaceForShip(shipppen, coordinates)) {
+    const shipLength = shipppen.length;
+    myShipNumber+=1;
+    myBoard1.placeShip(shipppen, coordinates);
+    placeBoard.placeShip(shipppen, coordinates);
+    if(shipppen.isVertical()) {
+      for(let i = 0; i < shipLength; i+=1) {
+        const div2 = document.querySelector(`.playerplace${coordinates[0]}${coordinates[1] + i}`);
+        const div3 = document.querySelector(`.player${coordinates[0]}${coordinates[1] + i}`);
+        const blackbox = document.createElement("div");
+        blackbox.classList.add("ship");
+        const blackbox1 = document.createElement("div");
+        blackbox1.classList.add("ship");
+        div2.appendChild(blackbox1);
+        div3.appendChild(blackbox);
+      }
+    }
+    else {
+      for(let i = 0; i < shipLength; i+=1) {
+        const div2 = document.querySelector(`.playerplace${coordinates[0] + i}${coordinates[1]}`);
+        const div3 = document.querySelector(`.player${coordinates[0] + i}${coordinates[1]}`);
+        const blackbox = document.createElement("div");
+        blackbox.classList.add("ship");
+        const blackbox1 = document.createElement("div");
+        blackbox1.classList.add("ship");
+        div2.appendChild(blackbox1);
+        div3.appendChild(blackbox);
+      }
+    }
+  }
+}
+
 // PlayerboardPLace
 for(let i = 0; i < 10; i+=1) {
   for(let j = 0; j < 10; j+=1) {
     const div = document.createElement("div");
     div.classList.add(`playerplace${j}${i}`);
     div.addEventListener("mouseover", () => {
-      drawPlacement([j,i], myShips[myShipNumber]);
+      drawPlacement([j,i]);
     });
     div.addEventListener("mouseout", () => {
       removePlacement();
+    });
+    div.addEventListener("click", () => {
+      placeShip([j,i], myBoard1);
+      removePlacement();
+      if(myShipNumber == 5) {
+        document.querySelector(".modal").style.display = "none";
+      }
     });
     playerBoardPlace.appendChild(div);
   }
