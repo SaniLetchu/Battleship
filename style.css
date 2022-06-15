@@ -58,6 +58,9 @@ body {
   background-repeat: no-repeat;
   background-size: 50%;
   background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal {
@@ -95,6 +98,13 @@ button {
   color: rgb(230, 230, 230);
   background-color: rgb(37, 37, 37);
   border-radius: 5px;
+}
+
+.ship {
+  opacity: 0.75;
+  background-color: #71797E;
+  height: 90%;
+  width: 90%;
 }
 
 button:hover {
