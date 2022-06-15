@@ -9,7 +9,7 @@ const enemyBoard = document.querySelector(".enemyboard");
 const myShips = [ship(5), ship(4), ship(3), ship(3), ship(2)];
 let myShipNumber = 0;
 const enemyShips = [ship(5), ship(4), ship(3), ship(3), ship(2)];
-const enemyShipNumber = 0;
+let enemyShipNumber = 0;
 
 let playerTurn = true;
 
@@ -27,7 +27,9 @@ function createHitMarker(board, coordinates, div) {
   else {
     div.style = "background-image: url(miss.svg)";
   }
-} 
+}
+
+
 
 
 // Playerboard
@@ -82,6 +84,7 @@ function removePlacement() {
 function placeShip(coordinates, board) {
   const shipppen = myShips[myShipNumber];
   if(board.legalPlaceForShip(shipppen, coordinates)) {
+    removePlacement();
     const shipLength = shipppen.length;
     myShipNumber+=1;
     myBoard1.placeShip(shipppen, coordinates);
@@ -126,7 +129,6 @@ for(let i = 0; i < 10; i+=1) {
     });
     div.addEventListener("click", () => {
       placeShip([j,i], myBoard1);
-      removePlacement();
       if(myShipNumber == 5) {
         document.querySelector(".modal").style.display = "none";
       }
@@ -139,7 +141,7 @@ function rotateShip(shippen) {
   shippen.rotate();
 }
 
-document.querySelector("button").addEventListener("click", () => {
+document.querySelector(".rotate").addEventListener("click", () => {
   rotateShip(myShips[myShipNumber]);
 })
 
@@ -149,7 +151,7 @@ for(let i = 0; i < 10; i+=1) {
     const div = document.createElement("div");
     div.classList.add(`enemy${j}${i}`);
     div.addEventListener("click", () => {
-      if(playerOne.attack([j, i]) && playerTurn) { // && !playerOne.won() && !playerOne.lost()
+      if(playerTurn && !playerOne.won() && !playerOne.lost() && playerOne.attack([j, i])) {
         playerTurn = false;
         createHitMarker(enemyBoard1, [j, i], div);
         const cord = ai.AIAttack();
@@ -159,4 +161,45 @@ for(let i = 0; i < 10; i+=1) {
     });
     enemyBoard.appendChild(div);
   }
+}
+
+function placeAIShip(coordinates, board) {
+  const shipppen = enemyShips[enemyShipNumber];
+  if(board.legalPlaceForShip(shipppen, coordinates)) {
+    const shipLength = shipppen.length;
+    enemyShipNumber+=1;
+    enemyBoard1.placeShip(shipppen, coordinates);
+    if(shipppen.isVertical()) {
+      for(let i = 0; i < shipLength; i+=1) {
+        const div3 = document.querySelector(`.enemy${coordinates[0]}${coordinates[1] + i}`);
+        const blackbox = document.createElement("div");
+        blackbox.classList.add("shipenemy");
+        div3.appendChild(blackbox);
+      }
+    }
+    else {
+      for(let i = 0; i < shipLength; i+=1) {
+        const div3 = document.querySelector(`.enemy${coordinates[0] + i}${coordinates[1]}`);
+        const blackbox = document.createElement("div");
+        blackbox.classList.add("shipenemy");
+        div3.appendChild(blackbox);
+      }
+    }
+  }
+}
+
+function placeAIBoard() {
+  while(enemyShipNumber !== 5) {
+    rotateShip(enemyShips[enemyShipNumber]);
+    placeAIShip([Math.floor(Math.random() * 10),Math.floor(Math.random() * 10)], enemyBoard1)
+  }
+}
+
+placeAIBoard();
+
+function revealEnemyShips() {
+  const ships = document.querySelectorAll(".shipenemy");
+  ships.forEach(element => {
+    element.style.opacity = "0.75";
+  });
 }
