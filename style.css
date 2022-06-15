@@ -56,7 +56,7 @@ body {
 .enemyboard > div, .playerboard > div, .playerboardplace > div {
   border: 1px solid black;
   background-repeat: no-repeat;
-  background-size: 50%;
+  background-size: 55%;
   background-position: center;
   display: flex;
   justify-content: center;
@@ -102,6 +102,13 @@ button {
 
 .ship {
   opacity: 0.75;
+  background-color: #71797E;
+  height: 90%;
+  width: 90%;
+}
+
+.shipenemy {
+  opacity: 0;
   background-color: #71797E;
   height: 90%;
   width: 90%;
