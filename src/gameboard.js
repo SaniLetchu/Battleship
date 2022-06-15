@@ -26,6 +26,15 @@ const gameboard = () => {
     return false;
   };
 
+  const containsShip = (coordinates) => {
+    if(map[coordinates] != null) {
+      return true;
+    }
+    
+      return false;
+    
+  }
+
   // Checks that ship is not next or ontop of another ship
   const shipNotOnTopOfOrNextToAnotherShip = (ship, coordinates) => {
     const newCoordinates = [coordinates[0] - 1, coordinates[1] - 1];
@@ -103,6 +112,7 @@ const gameboard = () => {
     alreadyHit,
     receiveAttack,
     fleetDestroyed,
+    containsShip,
   };
 };
 
