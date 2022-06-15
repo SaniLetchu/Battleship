@@ -154,9 +154,23 @@ for(let i = 0; i < 10; i+=1) {
       if(playerTurn && !playerOne.won() && !playerOne.lost() && playerOne.attack([j, i])) {
         playerTurn = false;
         createHitMarker(enemyBoard1, [j, i], div);
-        const cord = ai.AIAttack();
-        createHitMarker(myBoard1, cord, document.querySelector(`.player${cord[0]}${cord[1]}`));
-        playerTurn = true;
+        if(!playerOne.won()) {
+          const cord = ai.AIAttack();
+          createHitMarker(myBoard1, cord, document.querySelector(`.player${cord[0]}${cord[1]}`));
+          playerTurn = true;
+          if(playerOne.lost()) {
+            document.querySelector(".description").textContent = "YOU LOSE!";
+            document.querySelector(".description").style = "font-size: 30px";
+            document.querySelector(".description").style = "color: red";
+            revealEnemyShips();
+          }
+        }
+        else {
+          document.querySelector(".description").textContent = "YOU WIN!";
+          document.querySelector(".description").style = "font-size: 30px";
+          document.querySelector(".description").style = "color: goldenrod";
+          revealEnemyShips();
+        }
       }
     });
     enemyBoard.appendChild(div);
